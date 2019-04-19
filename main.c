@@ -9,7 +9,7 @@ char dizgi[100];
 char *dizi[100];
 int sayac = 0;
 
-char id[]="CMGS:";
+char id[]="OK";
 char *bulunan;
 void delay()
 {
@@ -61,16 +61,18 @@ int main()
   delay();
   sim800_Init();
   delay();
-//  sim_Gonder(USART2,"AT\r");
-//  delay();
+  sim_Gonder(USART2,"AT\r");
+  delay();
+  sim_Gonder(USART2,"AT+CREG?\r");
+  delay();
 //  sim_Gonder(USART2,"AT+CMGF=1\r");
 //  delay();
-  sim_Gonder(USART2,"AT+CMGS=\"05367955342\"\r");
-  delay();
-  sim_Gonder(USART2,"deneme mesaj1");
-  delay();
-  USART_SendData(USART2,deneme);
-  delay();
+//  sim_Gonder(USART2,"AT+CMGS=\"05367955342\"\r");
+//  delay();
+//  sim_Gonder(USART2,"deneme mesaj1");
+//  delay();
+//  USART_SendData(USART2,deneme);
+//  delay();
 
 while(1);
 }
