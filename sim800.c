@@ -1,6 +1,6 @@
 #include "sim800.h"
 
-void sim800_Init()
+void Usart2_Init()
 {
     GPIO_InitTypeDef   GPIO2_Ayar;
 	  USART_InitTypeDef  USART2_Ayar;
@@ -26,7 +26,7 @@ void sim800_Init()
     USART_ClockInit(USART2, &USART_ClockInitStructure);
    
 	 
-	 USART2_Ayar.USART_BaudRate = 9600;
+	 USART2_Ayar.USART_BaudRate = 115200;
    USART2_Ayar.USART_WordLength = USART_WordLength_8b;
    USART2_Ayar.USART_StopBits = USART_StopBits_1;
    USART2_Ayar.USART_Parity = USART_Parity_No;
@@ -48,7 +48,7 @@ void sim800_Init()
 	 
 }
 
-  void sim_Gonder(USART_TypeDef* USARTx,char *s)
+  void Usart_Gonder(USART_TypeDef* USARTx,char *s)
   {
  
  while(*s)
@@ -85,7 +85,7 @@ void sim800_Init()
     USART_ClockStructInit(&USART_ClockInitStructure);
     USART_ClockInit(USART1, &USART_ClockInitStructure);
    
-	 USART1_Ayar.USART_BaudRate = 115200;
+	 USART1_Ayar.USART_BaudRate = 9600;
    USART1_Ayar.USART_WordLength = USART_WordLength_8b;
    USART1_Ayar.USART_StopBits = USART_StopBits_1;
    USART1_Ayar.USART_Parity = USART_Parity_No;

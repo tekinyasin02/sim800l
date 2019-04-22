@@ -9,8 +9,10 @@ char dizgi[100];
 char *dizi[100];
 int sayac = 0;
 
-char id[]="OK";
+char id[]="+CMGS:";
 char *bulunan;
+
+int a = 0;
 void delay()
 {
 int i =0;
@@ -25,16 +27,17 @@ void parseveri(char *gelenveri[])
 
      if(bulunan)
      {
-     USART_SendData(USART1,'x');
+     USART_SendData(USART2,'x');
+       a=1;
      }
 }
 
-void USART2_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-while(USART_GetITStatus(USART2, USART_IT_RXNE))
+while(USART_GetITStatus(USART1, USART_IT_RXNE))
 {
-    ch = USART2->DR; 
-    USART_SendData(USART1,ch);
+    ch = USART1->DR; 
+    USART_SendData(USART2,ch);
    if(ch != '\n')
    {
     dizgi[sayac] = ch; 
@@ -54,25 +57,37 @@ while(USART_GetITStatus(USART2, USART_IT_RXNE))
 }
 
 }
-
+void mesaj()
+{
+while(a==0)
+  {
+  Usart_Gonder(USART1,"AT+CMGS=\"05367955342\"\r");
+  delay();
+  Usart_Gonder(USART1,"deneme");
+  delay();
+  USART_SendData(USART1,deneme);
+  delay();
+    a=1;
+  }
+}
 int main()
 {
   Usart1_Init();
   delay();
-  sim800_Init();
+  Usart2_Init();
   delay();
-  sim_Gonder(USART2,"AT\r");
-  delay();
-  sim_Gonder(USART2,"AT+CREG?\r");
-  delay();
-//  sim_Gonder(USART2,"AT+CMGF=1\r");
+//Usart_Gonder(USART1,"AT+CFUN=1\r");
+//delay();
+//Usart_Gonder(USART1,"AT+CREG?\r");
+//delay();
+//  Usart_Gonder(USART1,"AT+CMGF=1\r");
 //  delay();
-//  sim_Gonder(USART2,"AT+CMGS=\"05367955342\"\r");
+     mesaj();
+//  Usart_Gonder(USART1,"AT+IPR=9600\r");
 //  delay();
-//  sim_Gonder(USART2,"deneme mesaj1");
+//  Usart_Gonder(USART1,"AT&W\r");
 //  delay();
-//  USART_SendData(USART2,deneme);
-//  delay();
-
+//  Usart_Gonder(USART1,"AT+CMGR=32\r");
+//  delay(); 
 while(1);
 }
